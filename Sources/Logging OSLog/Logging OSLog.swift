@@ -78,7 +78,7 @@ public struct LoggingOSLog: LogHandler {
 		function: String,
 		line: UInt
 	) {
-		let metadataCSV = Self.joinMetadata(self.metadata, self.metadataProvider?.get(), metadata)
+		let metadataCSV = Self.joinedMetadata(self.metadata, self.metadataProvider?.get(), metadata)
 		let messageParts = [message.description, metadataCSV]
 
 		let message = messageParts.compactMap { $0 }.joined(separator: " -> ")
@@ -97,17 +97,17 @@ public struct LoggingOSLog: LogHandler {
 		}
 	}
 	
-	private static func joinMetadata(_ metadataList: Logging.Logger.Metadata?...) -> String? {
+	private static func joinedMetadata(_ metadataList: Logging.Logger.Metadata?...) -> String? {
 		var metadataAggregator: Logging.Logger.Metadata = [:]
 		for metadata in metadataList {
 			guard let metadata = metadata else { continue }
 			metadataAggregator.merge(metadata) { return $1 }
 		}
-		return Self.joinMetadata(metadataAggregator)
+		return Self.joinedMetadata(metadataAggregator)
 	}
 
-	private static func joinMetadata(_ metadata: Logging.Logger.Metadata, with separator: String = ", ") -> String? {
+	private static func joinedMetadata(_ metadata: Logging.Logger.Metadata, with separator: String = ", ") -> String? {
 		guard !metadata.isEmpty else { return nil }
-		return metadata.map { "\($0) = \($1)" }.joined(separator: separator)
+		return metadata.map { "\"\($0)\": \"\($1)\"" }.joined(separator: separator)
 	}
 }
