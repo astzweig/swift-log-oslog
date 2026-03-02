@@ -82,7 +82,7 @@ public struct LoggingOSLog: LogHandler {
 		let messageParts = [message.description, metadataCSV]
 
 		let message = messageParts.compactMap { $0 }.joined(separator: " -> ")
-		self.oslogger.log(level: OSLogType.from(loggerLevel: level), "\(message)")
+		self.oslogger.log(level: OSLogType.from(loggerLevel: level), "\(message, privacy: .public)")
 	}
 
 	/**

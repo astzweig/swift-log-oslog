@@ -78,6 +78,11 @@ library maps a reverse domain style label to the subsystem and category
 parameters of the unified logging system. See
 ``/LoggingOSLog/LoggingOSLog/init(label:)`` for more information.
 
+### What this library does not supply
+This library does not implement any of the interpolation privacy features of
+the unified logging system, i.e. there is no way to redact or align a meta
+information, like the `Logging` API would allow.
+
 [subsystem]: https://developer.apple.com/documentation/os/generating-log-messages-from-your-code#:~:text=The%20subsystem%20string,for%20each%20subsystem%20string.
 [category]: https://developer.apple.com/documentation/os/generating-log-messages-from-your-code#:~:text=The%20category%20string,for%20these%20strings.
 
