@@ -103,11 +103,6 @@ public struct LoggingOSLog: LogHandler {
 			guard let metadata = metadata else { continue }
 			metadataAggregator.merge(metadata) { return $1 }
 		}
-		return Self.joinedMetadata(metadataAggregator)
-	}
-
-	private static func joinedMetadata(_ metadata: Logging.Logger.Metadata, with separator: String = ", ") -> String? {
-		guard !metadata.isEmpty else { return nil }
-		return metadata.map { "\"\($0)\": \"\($1)\"" }.joined(separator: separator)
+		return metadataAggregator.asJSON()
 	}
 }
