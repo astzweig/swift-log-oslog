@@ -66,6 +66,13 @@ func init() {
 		"main": Logger(label: "com.example.yourapp.Main"),
 		"mail": Logger(label: "com.example.yourapp.Mail System"),
 	]
+
+	// And using loggers
+	logger["main"]!.debug("Starting build",
+		metadata: [
+			"input.output_directory": "\(output)",
+			"input.data": "\(data ?? "-")"
+	])
 }
 ```
 
@@ -77,6 +84,9 @@ better filtering of log messages: [subsystem][subsystem] and
 library maps a reverse domain style label to the subsystem and category
 parameters of the unified logging system. See
 ``/LoggingOSLog/LoggingOSLog/init(label:)`` for more information.
+
+Metadata is appended as JSON to the logged message after an ASCII right
+arrow ("->").
 
 ### What this library does not supply
 This library does not implement any of the interpolation privacy features of
