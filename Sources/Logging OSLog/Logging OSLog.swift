@@ -84,6 +84,13 @@ public struct LoggingOSLog: LogHandler {
 		let message = messageParts.compactMap { $0 }.joined(separator: " → ")
 		self.oslogger.log(level: OSLogType.from(loggerLevel: level), "\(message, privacy: .public)")
 	}
+    
+    /**
+        This function is called by [SwiftLog](https://github.com/apple/swift-log).
+     */
+    public func log(event: LogEvent) {
+        self.log(level: event.level, message: event.message, metadata: event.metadata, source: event.source, file: event.file, function: event.function, line: event.line)
+    }
 
 	/**
 		Use subscripts on struct instances, to add metadata for all future log messages.
